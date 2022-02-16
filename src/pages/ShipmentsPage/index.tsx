@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Box } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import Loader from "react-loader-spinner";
+import { Loader } from "../../components/Loader";
 import {
   fetchShipments,
   FetchShipmentsResult,
@@ -25,7 +24,7 @@ const INITIAL_RESULT: LoadingResult = {
 export const ShipmentsPage: React.FC = () => {
   const { ifIsMounted } = useIsMounted();
   // initialize component styles
-  const { classes, theme } = useShipmentPageStyles();
+  const { classes } = useShipmentPageStyles();
 
   // initialize a state value for storing the fetch shipments result
   const [fetchShipmentsResult, setFetchShipmentsResult] = useState<
@@ -56,11 +55,7 @@ export const ShipmentsPage: React.FC = () => {
 
   // if the fetch call is loading, return the loader
   if (fetchShipmentsResult.status === statuses.LOADING) {
-    return (
-      <Box className={classes.loader}>
-        <Loader type="Grid" color={theme.palette.primary.main} />
-      </Box>
-    );
+    return <Loader className={classes.loader} />;
   }
 
   // if the fetch call succeeded, return the data grid

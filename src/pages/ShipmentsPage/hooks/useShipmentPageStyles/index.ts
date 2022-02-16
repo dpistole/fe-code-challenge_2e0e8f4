@@ -1,9 +1,6 @@
-import { useTheme, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 export const useShipmentPageStyles = () => {
-  // grab the material-ui theme from context
-  const theme = useTheme();
-
   // generate the classNames used by the shipments page
   const useStyles = makeStyles({
     grid: {
@@ -24,7 +21,6 @@ export const useShipmentPageStyles = () => {
   });
 
   return {
-    theme,
     classes: useStyles(),
   };
 };
