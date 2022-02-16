@@ -4,8 +4,8 @@ Thanks for applying to Logixboard! The next step in our process is a coding chal
 with this step in the process are the following:
 
 1. To assess your ability to problem solve and develop a well-engineered solution to a user need.
-1. To give you an opportunity to show creativity in how you solve a user need.
-1. To give us a tool we can use for discussion and collaboration in our synchronous interviews.
+2. To give you an opportunity to show creativity in how you solve a user need.
+3. To give us a tool we can use for discussion and collaboration in our synchronous interviews.
 
 We hope and expect that this exercise should take about two hours to complete. If it takes you a
 bit more than that, that's okay, and you don't need to tell us. If it takes you a _lot_ more than
@@ -49,8 +49,8 @@ per page to increase to fill the available space.
 
 An important value proposition of Logixboard is helping users contextualize the flood of
 information they receive. We want to present the user first with what is most important at any
-given time. For many users, arrival time is a the most critical date on a shipment. They
-organize their work around when their goods are arriving. We want to present a user with a view
+given time. For many users, arrival time is the most critical date on a shipment. They
+organize their work around when their goods are arriving. We want to present the user with a view
 of shipments arriving in the next week, broken down by day.
 
 Please add some new functionality to the currently blank dashboard page. The ask from the user is
@@ -59,12 +59,12 @@ to be able to see at a glance which shipments are arriving in each of the next s
 Here's a couple more notes that might be helpful:
 
 - Because we don't have a shipment detail page, the feature added to the dashboard does not
-    need to be interactive.
+  need to be interactive.
 - Many users identify a shipment by it's `House Bill Number`. This could be relevant information
-    for you when you are deciding how to display the available data.
+  for you when you are deciding how to display the available data.
 - There is no need to reinvent the wheel. If there is a library out there that will help you solve
-    this problem, you are more than welcome to use it. Be prepared to explain your choices in the
-    synchronous interview.
+  this problem, you are more than welcome to use it. Be prepared to explain your choices in the
+  synchronous interview.
 
 ## Setup
 
@@ -76,11 +76,13 @@ like [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to manage mult
 make sure you're running the correct one.
 
 To install dependencies:
+
 ```
 npm install
 ```
 
 To start the development server:
+
 ```
 npm start
 ```
@@ -93,8 +95,7 @@ the browser of your choice.
 
 When you are complete, please submit in one of the following ways:
 
-1. Compress the entire directory into any commonly used compression format and return it via
-    email
+1. Compress the entire directory into any commonly used compression format and return it via email
 2. Send us a link to a publicly available repository with the code.
 
 We will assess your submission and follow up with next steps.
@@ -110,6 +111,7 @@ to bring on engineers that have experience with any modern toolset. We have trie
 scaffolding for this project in a way that should be easy for any developer to pick up.
 
 ### About that fetchShipments function
+
 We built the fetchShipments function to simulate a network call to retrieve data to drive the app. You
 are welcome to change anything you need to about the function including the interface and any
 transformations it makes, but please don't change the _spirit_ of it and just import the shipment
