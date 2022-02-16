@@ -9,6 +9,7 @@ import {
 } from "date-fns/esm";
 import { Shipment } from "../../../../data/Shipment";
 import { isWithinInterval } from "date-fns";
+import { useArrivingShipmentsStyles } from "./hooks/useArrivingShipmentsStyles";
 
 export interface ArrivingShipmentProps {
   shipments?: Shipment[];
@@ -19,6 +20,8 @@ const DAYS_IN_RANGE = 7;
 export const ArrivingShipments = ({
   shipments = [],
 }: ArrivingShipmentProps): JSX.Element => {
+  const { classes } = useArrivingShipmentsStyles();
+
   const today = new Date();
   const startOfDateRange = startOfDay(today);
   const endOfDateRange = endOfDay(
@@ -60,32 +63,36 @@ export const ArrivingShipments = ({
     );
 
   return (
-    <div>
+    <div className={classes.container}>
+      <h3>Shipments Arriving In the Next {DAYS_IN_RANGE} Days</h3>
       {shipments.length ? (
-        <div>
+        <div className={classes.daysContainer}>
           {datesToRender.map((dateToRender) => {
             // CODE_CHALLENGE: given time I'd probably extract the elements below into a <ShipmentInfo /> component (or something of that nature) to avoid all of the nested conditionals and render logic
             return (
-              <div>
+              <div
+                key={format(dateToRender, "yyyymmdd")}
+                className={classes.dayContainer}
+              >
                 <div>
                   {isSameDay(today, dateToRender)
                     ? "Today"
-                    : format(dateToRender, "E")}
+                    : format(dateToRender, "E (M/d)")}
                 </div>
                 <div>
                   {getShipmentsArrivalsForDate(dateToRender).length ? (
                     <div>
                       {getShipmentsArrivalsForDate(dateToRender).map(
                         (shipment) => (
-                          <div>
+                          <div key={shipment.id}>
                             &nbsp; &nbsp; HBN: {shipment.houseBillNumber}
                           </div>
                         )
                       )}
                     </div>
                   ) : (
-                    <div>
-                      <span>No Shipments Arriving</span>
+                    <div className={classes.noShipmentContainer}>
+                      <span>&nbsp; &nbsp; No Shipments</span>
                     </div>
                   )}
                 </div>

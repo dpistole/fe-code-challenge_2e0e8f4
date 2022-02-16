@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useDashboardStyles = () => {
-  // generate the classNames used by the shipments page
+  // generate the classNames used by the dashboards page
   const useStyles = makeStyles({
     loader: {
       margin: "auto",
