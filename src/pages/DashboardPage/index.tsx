@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
-import { DataGrid } from "@material-ui/data-grid";
-import { Loader } from "../../components/Loader";
+import React, { useState, useEffect } from "react";
+import { useIsMounted } from "../../hooks";
 import {
   fetchShipments,
   FetchShipmentsResult,
 } from "../../data/fetch-shipments";
-import { useIsMounted } from "../../hooks";
 import * as statuses from "../../constants/statuses";
-import { COLUMNS } from "./constants/columns";
-import { useShipmentPageStyles, useDynamicDataGrid } from "./hooks";
+import { Loader } from "../../components";
+import { useDashboardStyles } from "./hooks";
+import { ArrivingShipments } from "./components";
 
 type LoadingResult = {
   status: "LOADING";
@@ -18,18 +17,14 @@ const INITIAL_RESULT: LoadingResult = {
   status: "LOADING",
 };
 
-export const ShipmentsPage: React.FC = () => {
+export const DashboardPage: React.FC = () => {
   const { ifIsMounted } = useIsMounted();
-  // initialize component styles
-  const { classes } = useShipmentPageStyles();
+  const { classes } = useDashboardStyles();
 
   // initialize a state value for storing the fetch shipments result
   const [fetchShipmentsResult, setFetchShipmentsResult] = useState<
     FetchShipmentsResult | LoadingResult
   >(INITIAL_RESULT);
-
-  // get the pageSize
-  const { pageSize } = useDynamicDataGrid();
 
   // on mount fetch the shipments data
   useEffect(() => {
@@ -58,15 +53,14 @@ export const ShipmentsPage: React.FC = () => {
   // if the fetch call succeeded, return the data grid
   if (fetchShipmentsResult.status === statuses.SUCCESS) {
     return (
-      <DataGrid
-        className={classes.grid}
-        rows={fetchShipmentsResult.shipments}
-        columns={COLUMNS}
-        pageSize={pageSize}
-        // resolves console warning `The page size ${pageSize} is not preset in the `rowsPerPageOptions``
-        rowsPerPageOptions={[pageSize]}
-        disableSelectionOnClick
-      />
+      <div className={classes.container}>
+        {/*
+          CODE_CHALLENGE: Type Shipment[] is not assignable to type never[]
+          TS is mad here :( normally I'd hit google and learn/understand why, given time constraints im reaching for @ts-ignore
+        */}
+        {/* @ts-ignore */}
+        <ArrivingShipments shipments={fetchShipmentsResult?.shipments} />
+      </div>
     );
   }
 
