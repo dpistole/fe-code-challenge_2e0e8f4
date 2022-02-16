@@ -7,7 +7,11 @@ import {
   FetchShipmentsResult,
 } from "../../data/fetch-shipments";
 import { COLUMNS } from "./constants/columns";
-import { useShipmentPageStyles } from "./hooks/useShipmentPageStyles";
+import {
+  useIsMounted,
+  useShipmentPageStyles,
+  useDynamicDataGrid,
+} from "./hooks";
 import * as statuses from "./constants/statuses";
 
 type LoadingResult = {
@@ -19,6 +23,7 @@ const INITIAL_RESULT: LoadingResult = {
 };
 
 export const ShipmentsPage: React.FC = () => {
+  const { ifIsMounted } = useIsMounted();
   // initialize component styles
   const { classes, theme } = useShipmentPageStyles();
 
@@ -27,10 +32,27 @@ export const ShipmentsPage: React.FC = () => {
     FetchShipmentsResult | LoadingResult
   >(INITIAL_RESULT);
 
+  // get the pageSize
+  const { pageSize } = useDynamicDataGrid();
+
   // on mount fetch the shipments data
   useEffect(() => {
-    fetchShipments().then((result) => setFetchShipmentsResult(result));
-  }, []);
+    const load = async () => {
+      try {
+        const result = await fetchShipments();
+        ifIsMounted(() => {
+          setFetchShipmentsResult(result);
+        });
+      } catch {
+        setFetchShipmentsResult({
+          status: statuses.ERROR,
+          message: "An unexpected error occurred",
+        });
+      }
+    };
+
+    load();
+  }, [ifIsMounted]);
 
   // if the fetch call is loading, return the loader
   if (fetchShipmentsResult.status === statuses.LOADING) {
@@ -48,7 +70,9 @@ export const ShipmentsPage: React.FC = () => {
         className={classes.grid}
         rows={fetchShipmentsResult.shipments}
         columns={COLUMNS}
-        pageSize={20}
+        pageSize={pageSize}
+        // resolves console warning `The page size ${pageSize} is not preset in the `rowsPerPageOptions``
+        rowsPerPageOptions={[pageSize]}
         disableSelectionOnClick
       />
     );
