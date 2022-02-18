@@ -26,7 +26,8 @@ export const ArrivingShipments = ({
   const today = new Date();
   const startOfDateRange = startOfDay(today);
   const endOfDateRange = endOfDay(
-    addDays(new Date(startOfDateRange), DAYS_IN_RANGE)
+    // add DAYS_IN_RANGE - 1 (because we dont count today)
+    addDays(new Date(startOfDateRange), DAYS_IN_RANGE - 1)
   );
 
   // create an array of the shipments arriving in the next seven days
