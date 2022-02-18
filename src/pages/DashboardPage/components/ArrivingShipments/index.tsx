@@ -86,7 +86,10 @@ export const ArrivingShipments = ({
                     <div>
                       {getShipmentsArrivalsForDate(dateToRender).map(
                         (shipment) => (
-                          <ShipmentArrivalSummary shipment={shipment} />
+                          <ShipmentArrivalSummary
+                            key={shipment.id}
+                            shipment={shipment}
+                          />
                         )
                       )}
                     </div>
