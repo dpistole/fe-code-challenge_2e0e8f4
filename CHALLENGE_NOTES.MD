@@ -13,3 +13,5 @@ NOTES FOR FOLLOWUP INTERVIEW (while fresh in mind)
 - Time breakdown was probably ~2 hours on Shipments page and ~1 hour (+20 over limit) on the dashboards page
 
 - In hindsight I'd probably focus more on just getting something working to leave more time for styling the components. Not having sass/styled components in the mix (and wanting to adhere to existing styling system) left me a little slower on the styling piece, and admittedly I spent long enough on the logic to where I hit the time limit before I could really take much time to make things "look nice". I do have a pretty minimal website up with heavier stylings, and I could probably get some screenshots or access to the apps I've been building at KUBRA if my CSS abilities are a point of concern.
+
+...some additional refactoring for my own knowledge on branch after-the-buzzer
