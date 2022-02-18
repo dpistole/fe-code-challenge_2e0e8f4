@@ -24,18 +24,24 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Redirect to={AppRoute.DASHBOARD} />
-          </Route>
-          <Route path={AppRoute.DASHBOARD}>
-            <DashboardPage />
-          </Route>
-          <Route path={AppRoute.SHIPMENTS}>
-            <ShipmentsPage />
-          </Route>
-        </Switch>
+        <div className="app__container">
+          <div className="navbar__container">
+            <Navbar />
+          </div>
+          <div className="page__container">
+            <Switch>
+              <Route exact path="/">
+                <Redirect to={AppRoute.DASHBOARD} />
+              </Route>
+              <Route path={AppRoute.DASHBOARD}>
+                <DashboardPage />
+              </Route>
+              <Route path={AppRoute.SHIPMENTS}>
+                <ShipmentsPage />
+              </Route>
+            </Switch>
+          </div>
+        </div>
       </Router>
     </ThemeProvider>
   );
