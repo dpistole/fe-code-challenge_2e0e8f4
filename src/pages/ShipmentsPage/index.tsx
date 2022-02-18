@@ -65,7 +65,7 @@ export const ShipmentsPage: React.FC = () => {
       break;
     case statuses.ERROR:
     default:
-      useComponent = <div className="page__container">{useComponent}</div>;
+      useComponent = <p>Error</p>;
   }
 
   return <div className="page__container">{useComponent}</div>;
