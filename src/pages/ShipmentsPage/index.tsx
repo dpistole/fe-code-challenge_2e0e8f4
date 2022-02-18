@@ -8,7 +8,7 @@ import {
 import { useIsMounted } from "../../hooks";
 import * as statuses from "../../constants/statuses";
 import { COLUMNS } from "./constants/columns";
-import { useShipmentPageStyles, useDynamicDataGrid } from "./hooks";
+import { useShipmentPageStyles } from "./hooks";
 
 type LoadingResult = {
   status: "LOADING";
@@ -27,9 +27,6 @@ export const ShipmentsPage: React.FC = () => {
   const [fetchShipmentsResult, setFetchShipmentsResult] = useState<
     FetchShipmentsResult | LoadingResult
   >(INITIAL_RESULT);
-
-  // get the pageSize
-  const { pageSize, dataGridContainerRef } = useDynamicDataGrid();
 
   // on mount fetch the shipments data
   useEffect(() => {
@@ -61,9 +58,7 @@ export const ShipmentsPage: React.FC = () => {
           className={classes.grid}
           rows={fetchShipmentsResult.shipments}
           columns={COLUMNS}
-          pageSize={pageSize}
-          // resolves console warning `The page size ${pageSize} is not preset in the `rowsPerPageOptions``
-          rowsPerPageOptions={[pageSize]}
+          autoPageSize
           disableSelectionOnClick
         />
       );
@@ -73,9 +68,5 @@ export const ShipmentsPage: React.FC = () => {
       useComponent = <div className="page__container">{useComponent}</div>;
   }
 
-  return (
-    <div className="page__container" ref={dataGridContainerRef}>
-      {useComponent}
-    </div>
-  );
+  return <div className="page__container">{useComponent}</div>;
 };
