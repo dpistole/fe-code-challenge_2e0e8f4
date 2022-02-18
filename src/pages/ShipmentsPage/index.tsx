@@ -8,7 +8,7 @@ import {
 import { useIsMounted } from "../../hooks";
 import * as statuses from "../../constants/statuses";
 import { COLUMNS } from "./constants/columns";
-import { useShipmentPageStyles, useDynamicDataGrid } from "./hooks";
+import { useShipmentPageStyles } from "./hooks";
 
 type LoadingResult = {
   status: "LOADING";
@@ -27,9 +27,6 @@ export const ShipmentsPage: React.FC = () => {
   const [fetchShipmentsResult, setFetchShipmentsResult] = useState<
     FetchShipmentsResult | LoadingResult
   >(INITIAL_RESULT);
-
-  // get the pageSize
-  const { pageSize } = useDynamicDataGrid();
 
   // on mount fetch the shipments data
   useEffect(() => {
@@ -50,26 +47,26 @@ export const ShipmentsPage: React.FC = () => {
     load();
   }, [ifIsMounted]);
 
-  // if the fetch call is loading, return the loader
-  if (fetchShipmentsResult.status === statuses.LOADING) {
-    return <Loader className={classes.loader} />;
+  let useComponent = null;
+  switch (fetchShipmentsResult.status) {
+    case statuses.LOADING:
+      useComponent = <Loader className={classes.loader} />;
+      break;
+    case statuses.SUCCESS:
+      useComponent = (
+        <DataGrid
+          className={classes.grid}
+          rows={fetchShipmentsResult.shipments}
+          columns={COLUMNS}
+          autoPageSize
+          disableSelectionOnClick
+        />
+      );
+      break;
+    case statuses.ERROR:
+    default:
+      useComponent = <div className="page__container">{useComponent}</div>;
   }
 
-  // if the fetch call succeeded, return the data grid
-  if (fetchShipmentsResult.status === statuses.SUCCESS) {
-    return (
-      <DataGrid
-        className={classes.grid}
-        rows={fetchShipmentsResult.shipments}
-        columns={COLUMNS}
-        pageSize={pageSize}
-        // resolves console warning `The page size ${pageSize} is not preset in the `rowsPerPageOptions``
-        rowsPerPageOptions={[pageSize]}
-        disableSelectionOnClick
-      />
-    );
-  }
-
-  // if the fetch call failed, or we have an unknown status, display an error message
-  return <p>Error</p>;
+  return <div className="page__container">{useComponent}</div>;
 };

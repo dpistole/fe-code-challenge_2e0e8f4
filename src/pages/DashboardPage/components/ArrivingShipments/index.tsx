@@ -10,6 +10,7 @@ import {
 import { Shipment } from "../../../../data/Shipment";
 import { isWithinInterval } from "date-fns";
 import { useArrivingShipmentsStyles } from "./hooks/useArrivingShipmentsStyles";
+import { ShipmentArrivalSummary } from "./components/ShipmentArrivalSummary";
 
 export interface ArrivingShipmentProps {
   shipments?: Shipment[];
@@ -25,7 +26,8 @@ export const ArrivingShipments = ({
   const today = new Date();
   const startOfDateRange = startOfDay(today);
   const endOfDateRange = endOfDay(
-    addDays(new Date(startOfDateRange), DAYS_IN_RANGE)
+    // add DAYS_IN_RANGE - 1 (because we dont count today)
+    addDays(new Date(startOfDateRange), DAYS_IN_RANGE - 1)
   );
 
   // create an array of the shipments arriving in the next seven days
@@ -74,19 +76,20 @@ export const ArrivingShipments = ({
                 key={format(dateToRender, "yyyymmdd")}
                 className={classes.dayContainer}
               >
-                <div>
+                <div className={classes.dayContainerHeader}>
                   {isSameDay(today, dateToRender)
                     ? "Today"
                     : format(dateToRender, "E (M/d)")}
                 </div>
-                <div>
+                <div className={classes.dayContainerBody}>
                   {getShipmentsArrivalsForDate(dateToRender).length ? (
                     <div>
                       {getShipmentsArrivalsForDate(dateToRender).map(
                         (shipment) => (
-                          <div key={shipment.id}>
-                            &nbsp; &nbsp; HBN: {shipment.houseBillNumber}
-                          </div>
+                          <ShipmentArrivalSummary
+                            key={shipment.id}
+                            shipment={shipment}
+                          />
                         )
                       )}
                     </div>

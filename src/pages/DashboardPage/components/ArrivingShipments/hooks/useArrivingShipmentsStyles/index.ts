@@ -15,8 +15,7 @@ export const useArrivingShipmentsStyles = () => {
       },
     },
     dayContainer: {
-      padding: "0.8rem",
-      border: "solid thin",
+      padding: "4px",
       flexGrow: 0,
       flexShrink: 0,
       flexBasis: "150px",
@@ -25,8 +24,17 @@ export const useArrivingShipmentsStyles = () => {
         flexShrink: 1,
       },
     },
+    dayContainerHeader: {
+      backgroundColor: theme.palette.primary.main,
+      padding: "12px",
+    },
+    dayContainerBody: {
+      padding: "8px 4px",
+    },
     noShipmentContainer: {
+      padding: "8px 4px",
       textAlign: "center",
+      opacity: "0.7",
     },
   });
 
