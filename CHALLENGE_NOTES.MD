@@ -15,3 +15,7 @@ NOTES FOR FOLLOWUP INTERVIEW (while fresh in mind)
 - In hindsight I'd probably focus more on just getting something working to leave more time for styling the components. Not having sass/styled components in the mix (and wanting to adhere to existing styling system) left me a little slower on the styling piece, and admittedly I spent long enough on the logic to where I hit the time limit before I could really take much time to make things "look nice". I do have a pretty minimal website up with heavier stylings, and I could probably get some screenshots or access to the apps I've been building at KUBRA if my CSS abilities are a point of concern.
 
 ...some additional refactoring for my own knowledge on branch after-the-buzzer
+
+- :\ looks like I leveled myself on the time crunch, turns out there is a prop for autoSizing the data-grid, refactored my original approach from static sizing to using refs, then deleted it all in favor of the built in prop. I take full responsibility for missing that in the docs, though I do believe in normal circumstances I would be more apt to take my time and ingest all of the information vs trying to quickly extract just enough to get things going to meet the time crunch.
+
+- I added some styles to the ArrivingShipments component, it bothered me how plain it looked haha
