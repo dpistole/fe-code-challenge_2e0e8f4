@@ -54,11 +54,6 @@ export const DashboardPage: React.FC = () => {
   if (fetchShipmentsResult.status === statuses.SUCCESS) {
     return (
       <div className={classes.container}>
-        {/*
-          CODE_CHALLENGE: Type Shipment[] is not assignable to type never[]
-          TS is mad here :( normally I'd hit google and learn/understand why, given time constraints im reaching for @ts-ignore
-        */}
-        {/* @ts-ignore */}
         <ArrivingShipments shipments={fetchShipmentsResult?.shipments} />
       </div>
     );

@@ -1,7 +1,6 @@
-import { makeStyles, useTheme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 export const useShipmentArrivalSummaryStyles = () => {
-  const theme = useTheme();
   const useStyles = makeStyles({
     container: {
       paddingBottom: "20px",
