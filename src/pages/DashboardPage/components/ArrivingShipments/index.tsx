@@ -10,6 +10,7 @@ import {
 import { Shipment } from "../../../../data/Shipment";
 import { isWithinInterval } from "date-fns";
 import { useArrivingShipmentsStyles } from "./hooks/useArrivingShipmentsStyles";
+import { ShipmentArrivalSummary } from "./components/ShipmentArrivalSummary";
 
 export interface ArrivingShipmentProps {
   shipments?: Shipment[];
@@ -74,19 +75,17 @@ export const ArrivingShipments = ({
                 key={format(dateToRender, "yyyymmdd")}
                 className={classes.dayContainer}
               >
-                <div>
+                <div className={classes.dayContainerHeader}>
                   {isSameDay(today, dateToRender)
                     ? "Today"
                     : format(dateToRender, "E (M/d)")}
                 </div>
-                <div>
+                <div className={classes.dayContainerBody}>
                   {getShipmentsArrivalsForDate(dateToRender).length ? (
                     <div>
                       {getShipmentsArrivalsForDate(dateToRender).map(
                         (shipment) => (
-                          <div key={shipment.id}>
-                            &nbsp; &nbsp; HBN: {shipment.houseBillNumber}
-                          </div>
+                          <ShipmentArrivalSummary shipment={shipment} />
                         )
                       )}
                     </div>
